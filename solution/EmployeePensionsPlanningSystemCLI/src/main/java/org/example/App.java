@@ -15,10 +15,12 @@ public class App {
         List<Employee> employees = EmployeesCreator.getEmployees();
         System.out.println("Printing out the list of all the Employees in JSON format:");
         cli.printEmployeesInJsonFormat(employees);
-
+        System.out.println("\nPrinting out the list of monthly upcoming enrollees report:");
+        cli.printMonthlyUpcomingEnrolleesReport();
         System.out.println("\nCheck employee with pension plan:");
         for(Employee employee : employees){
             System.out.println(cli.hasPensionPlan(employee));
+            System.out.println(employee.getFirstName() + cli.willHasPensionPlanNextMonth(employee));
         }
 
     }

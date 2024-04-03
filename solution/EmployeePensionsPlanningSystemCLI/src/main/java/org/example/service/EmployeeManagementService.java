@@ -27,8 +27,30 @@ public class EmployeeManagementService {
         }
     }
 
+    public void printMonthlyUpcomingEnrolleesReport (){
+        List<Employee> upcomingEnrollees = new ArrayList<>();
+        for(Employee employee: employees){
+            if(employee.getPensionPlan() == null && employee.willHasPensionPlanNextMonth()){
+                upcomingEnrollees.add(employee);
+            }
+        }
+        List<Employee> upcomingEnrolleesSorted = upcomingEnrollees.stream()
+                .sorted(Comparator.comparing(Employee::getEmploymentDate))
+                .collect(Collectors.toList());
+        try {
+            String json = convertToJson(upcomingEnrolleesSorted);
+            System.out.println(json);
+        } catch (Exception e) {
+            System.out.println("Error converting upcoming enrollees to JSON: " + e.getMessage());
+        }
+    }
+
     public boolean hasPensionPlan(Employee employee){
         return employee.hasPensionPlan();
+    }
+
+    public boolean willHasPensionPlanNextMonth(Employee employee){
+        return employee.willHasPensionPlanNextMonth();
     }
 
     private List<Employee> sortEmployees(List<Employee> employees){

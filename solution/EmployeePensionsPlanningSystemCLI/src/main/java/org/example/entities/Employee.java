@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 
 @NoArgsConstructor
@@ -35,4 +36,12 @@ public class Employee {
 
         return currentDate.isAfter(employmentPlus5Years) && currentDate.isBefore(employmentPlus5YearsAnd29Days);
     }
+
+    public boolean willHasPensionPlanNextMonth() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate employmentPlus4YearsAnd12Months = employmentDate.plusYears(4).plusMonths(11).plusDays(1);
+        LocalDate employmentPlus4YearsAnd12MonthsAnd29Days = employmentDate.plusYears(4).plusMonths(11).plusDays(29);
+        return currentDate.isAfter(employmentPlus4YearsAnd12Months) && currentDate.isBefore(employmentPlus4YearsAnd12MonthsAnd29Days);
+    }
+
 }
